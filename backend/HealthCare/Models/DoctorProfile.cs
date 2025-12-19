@@ -21,12 +21,9 @@ public class DoctorProfile
     public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;
     public DateTime? ApprovedAtUtc { get; set; }
 
-    // License upload
-    [MaxLength(255)]
-    public string? LicenseFileName { get; set; }
-
     [MaxLength(500)]
-    public string? LicenseFilePath { get; set; }
+    public string? LicenseImageUrl { get; set; }
+    public string? LicenseImagePublicId { get; set; }
 
     public DateTime? LicenseUploadedAtUtc { get; set; }
 }

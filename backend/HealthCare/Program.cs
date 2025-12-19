@@ -1,4 +1,5 @@
 ﻿using HealthCare.Data;
+using HealthCare.Repositories;
 using HealthCare.Repositories.Implementations;
 using HealthCare.Repositories.Interfaces;
 using HealthCare.Services;
@@ -54,6 +55,9 @@ builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
+builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.Configure<CloudinaryOptions>(builder.Configuration.GetSection("Cloudinary"));
 builder.Services.AddScoped<IImageStorage, CloudinaryImageStorage>();
 
