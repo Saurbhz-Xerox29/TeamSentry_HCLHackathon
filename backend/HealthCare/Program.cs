@@ -1,11 +1,12 @@
-using HealthCare.Data;
+﻿using HealthCare.Data;
 using HealthCare.Repositories.Implementations;
 using HealthCare.Repositories.Interfaces;
 using HealthCare.Services;
 using HealthCare.Services.Implementations;
 using HealthCare.Services.Interfaces;
+using HealthCare.Utils;
+using HealthCare.Utils.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -15,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.WebHost.UseUrls("http://0.0.0.0:5000");
+
 builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("web", p =>
@@ -32,7 +33,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // JWT
 var jwtKey = Environment.GetEnvironmentVariable("Jwt__Key")!;
-if (jwtKey == null)
+if(jwtKey == null)
     jwtKey = builder.Configuration["Jwt:Key"]!;
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(opt =>
@@ -51,6 +52,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.Configure<CloudinaryOptions>(builder.Configuration.GetSection("Cloudinary"));
+builder.Services.AddScoped<IImageStorage, CloudinaryImageStorage>();
 
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();
