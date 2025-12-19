@@ -14,5 +14,17 @@ public class AppDbContext : DbContext
     {
         modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
         base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<PatientProfile>()
+        .HasOne(p => p.User)
+        .WithOne()
+        .HasForeignKey<PatientProfile>(p => p.UserId)
+        .OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<DoctorProfile>()
+        .HasOne(d => d.User)
+        .WithOne()
+        .HasForeignKey<DoctorProfile>(d => d.UserId)
+        .OnDelete(DeleteBehavior.Cascade);
+
     }
+
 }

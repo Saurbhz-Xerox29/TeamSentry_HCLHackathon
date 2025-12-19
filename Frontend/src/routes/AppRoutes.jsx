@@ -5,6 +5,7 @@ import PublicOnly from "../auth/PublicOnly";
 import RequireRole from "../auth/RequireRole";
 import Login from "../pages/LoginModule/Login";
 import SignUp from "../pages/LoginModule/SignUp";
+import DoctorSignUp from "../pages/LoginModule/DoctorSignUp";
 import Dashboard from "../pages/DashboardModule/Dashboard";
 import Profile from "../pages/ProfileModule/Profile";
 import ChangePassword from "../pages/ProfileModule/ChangePassword";
@@ -20,6 +21,7 @@ function AppRoutes() {
       <Route element={<PublicOnly />}>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/doctor/register" element={<DoctorSignUp />} />
         <Route path="/medicines-nearby" element={<PharmacyFinder />} />
         <Route path="/" element={<Home />} />
         <Route path="*" element={<Home />} />
